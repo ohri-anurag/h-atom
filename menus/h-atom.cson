@@ -1,0 +1,22 @@
+# See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
+'context-menu':
+  'atom-text-editor': [
+    {
+      'label': 'H-Atom : Destruct'
+      'command': 'h-atom:toggle'
+    }
+  ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'H-Atom'
+      'submenu': [
+        {
+          'label': 'Destruct'
+          'command': 'h-atom:toggle'
+        }
+      ]
+    ]
+  }
+]

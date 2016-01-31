@@ -1,0 +1,18 @@
+{
+  "name": "h-atom",
+  "main": "./lib/h-atom",
+  "version": "0.0.0",
+  "description": "Basic Haskell Completion, modelled in the same way as Destruct command provided by the Merlin package for OCaml.",
+  "keywords": [
+  ],
+  "activationCommands": {
+    "atom-workspace": "h-atom:toggle"
+  },
+  "repository": "https://github.com/atom/h-atom",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}
