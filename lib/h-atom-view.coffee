@@ -33,8 +33,8 @@ class HAtomView
 
     adtDeclarations = getAdtDeclarations lines
 
-    # For each declaration, check out the functions related to it.
     #text
+    # For each declaration, check out the functions related to it.
     text = Basics.fold this.autoFill, text, adtDeclarations
 
   autoFill: (text, declaration) ->
@@ -53,8 +53,8 @@ class HAtomView
       (line) ->
         # Only proceed if the line marks a function definition which includes the given type
         if line.indexOf('::') > -1 && line.indexOf(typeName) > -1
-          str = Basics.dropWhile Basics.isSpace, line.substring(line.indexOf('::') + 2)
-          if(str.indexOf(typeName) == 0)
+          functionInputOutputTypes = getTypesInFunction line
+          if(functionInputOutputTypes.indexOf(typeName) > -1)
             # Here we do the actual work.
 
             # Retrieve the function name.
@@ -72,7 +72,7 @@ class HAtomView
 
             # console.log types
             # Create stubs for all types for which function has not yet been defined.
-            typeDefs = Basics.map showType.bind(null, indentation, funcName), typesUndefined
+            typeDefs = Basics.map showStub.bind(null, indentation, funcName, (functionInputOutputTypes.length-1), functionInputOutputTypes.indexOf(typeName)), typesUndefined
 
             appendStr = Basics.fold ((i, t) -> i + "\n" + t), line, typeDefs
           else
@@ -97,8 +97,10 @@ class HAtomView
       fnDfLns = fnLn.slice(1)
       fnDfLns.sort(
         (a, b) ->
-          ta = (Basics.split ' ', (Basics.trim a))[1].join('')
-          tb = (Basics.split ' ', (Basics.trim b))[1].join('')
+          ta = Basics.takeWhile (Basics.inv (Basics.isChar '=')), a
+          tb = Basics.takeWhile (Basics.inv (Basics.isChar '=')), b
+          ta = (Basics.filter ((t) -> t.join('') != '_'), (Basics.split ' ', (Basics.trim ta)))[1].join('')
+          tb = (Basics.filter ((t) -> t.join('') != '_'), (Basics.split ' ', (Basics.trim tb)))[1].join('')
           if typeOrdering[ta] < typeOrdering[tb]
             -1
           else if typeOrdering[ta] > typeOrdering[tb]
@@ -181,15 +183,17 @@ parseType = (td) ->
   else
     func rest, [dc]
 
-showType = (indentation, funcName, t) ->
-  indentation + funcName + ' ' +
+showStub = (indentation, funcName, functionTypesLength, typeIndex, t) ->
+  funcStub = Basics.repeat '_', functionTypesLength
+  funcStub[typeIndex] =
     (if (t.length > 1) then '(' else '') +
       t[0].join('') + space(t) +
       (if checkType t
         (Basics.map ((a) -> a.join ''), t.slice 1).join ' '
       else
         Basics.intersperse(' ', Basics.repeat '_', (t.length-1)).join('')) +
-      (if (t.length > 1) then ')' else '') + ' = undefined'
+      (if (t.length > 1) then ')' else '')
+  indentation + funcName + ' ' + funcStub.join(' ') + ' = undefined'
 
 checkType = (t) ->
   res = true
@@ -248,3 +252,8 @@ getFunctionName = (line) ->
     temp = temp.substring 0, temp.indexOf('::')
 
   temp
+
+getTypesInFunction = (line) ->
+  line = line.substring line.indexOf('::') + 2
+  line = line.split '->'
+  Basics.map ((l) -> (Basics.trim l).join('')), line
