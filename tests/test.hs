@@ -24,4 +24,8 @@ data MyTree a = MyLeaf | MyNode {
 
 size :: Tree a -> Maybe a -> Int
 
+size :: Maybe a -> Tree a -> Int
+
 size :: MyTree a -> Maybe a -> Int
+
+size :: Maybe a -> MyTree a -> Int
