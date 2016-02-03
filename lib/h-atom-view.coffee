@@ -54,7 +54,7 @@ class HAtomView
         # Only proceed if the line marks a function definition which includes the given type
         if line.indexOf('::') > -1 && line.indexOf(typeName) > -1
           functionInputOutputTypes = getTypesInFunction line
-          if(functionInputOutputTypes.indexOf(typeName) > -1)
+          if(functionInputOutputTypes.indexOf(typeName) > -1 && getTypesInFunction(line).length > 1)
             # Here we do the actual work.
 
             # Retrieve the function name.
