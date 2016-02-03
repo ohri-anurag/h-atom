@@ -87,6 +87,7 @@ class HAtomView
     newLines = newText.split('\n')
 
     # For each processed function, sort the function definitions.
+    ###
     Basics.traverse ((i) ->
       fn = funcDeclarations[i]
 
@@ -119,6 +120,7 @@ class HAtomView
         (j) -> newLines[j + index] = fnDfLns[j]
         ), 0, Basics.less fnDfLns.length
     ), 0, Basics.less funcDeclarations.length
+    ###
 
     # Return after sort
     newLines.join('\n')
