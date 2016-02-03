@@ -1,5 +1,6 @@
 HAtomView = require './h-atom-view'
 {CompositeDisposable} = require 'atom'
+exec = require('child_process').exec
 
 module.exports = HAtom =
   hAtomView: null
@@ -31,6 +32,16 @@ module.exports = HAtom =
   toggle: ->
     console.log 'H-Atom was toggled!'
 
+    ###
+    execute = (command, callback) ->
+      exec(command, (error, stdout, stderr) -> callback(stdout))
+
+
+    # call the function
+    execute 'chdir', (output) ->
+      console.log(output);
+
+    ###
     editor = atom.workspace.getActiveTextEditor()
     if editor
       text = editor.getText()

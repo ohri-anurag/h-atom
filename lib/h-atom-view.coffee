@@ -28,7 +28,7 @@ class HAtomView
   destruct: (text) ->
     # Firstly,  we need to split the text into separate lines
     lines = text.split('\n')
-    console.log((Basics.intersperse(' ', Basics.repeat '_', 3)).join(''))
+    #console.log((Basics.intersperse(' ', Basics.repeat '_', 3)).join(''))
     #console.log(Basics.repeat '_', 3)
 
     adtDeclarations = getAdtDeclarations lines
@@ -133,7 +133,7 @@ getAdtDeclarations = (lines) ->
         # Process multi - line declarations
         Basics.traverse (
           (j) ->
-            console.log lines[j]
+            #console.log lines[j]
             declaration += lines[j]
           ), i+1, ((k) -> lines[k][0] == ' ')
 

@@ -1,7 +1,7 @@
 {
   "name": "h-atom",
   "main": "./lib/h-atom",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Basic Haskell Completion, modelled in the same way as Destruct command provided by the Merlin package for OCaml.",
   "keywords": [
   ],

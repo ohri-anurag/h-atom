@@ -17,11 +17,16 @@ This package is not dependent on any other package.
 
 Assumptions
 -----------
-1. All functions have type definitions. Even helper functions.
+1. All functions have type definitions. Even functions not defined using 'where' or 'let'.
 
 Support
 -------
-  Currently this functionality is limited to ADTs defined within the same file that is being worked upon.
+Currently this functionality is limited to ADTs defined within the same file that is being worked upon. Also, case statements are not supported.
+
+Future Support
+--------------
+1. Case Statements.
+2. ADTs defined in other files and other modules.
 
 Images
 ------
